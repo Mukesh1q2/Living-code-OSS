@@ -24,8 +24,25 @@ export default function DeviceAdaptation({ children }: DeviceAdaptationProps) {
     setShowPlanPanel,
   } = useQuantumState();
 
-  const [deviceCapabilities, setDeviceCapabilities] = useState(() => getDeviceCapabilities());
-  const [enhancementLevel, setEnhancementLevel] = useState(() => getProgressiveEnhancementLevel());
+  // Hydration-safe defaults; compute real values on client to avoid SSR mismatches
+  const [deviceCapabilities, setDeviceCapabilities] = useState(() => ({
+    hasWebGL: false,
+    hasWebGL2: false,
+    hasTouch: false,
+    hasPointerEvents: false,
+    maxTextureSize: 0,
+    supportsComplexShaders: false,
+    deviceMemory: 4,
+    hardwareConcurrency: 4,
+    connectionType: 'unknown' as any,
+    batteryLevel: 1,
+    isCharging: true,
+    devicePixelRatio: 1,
+    prefersReducedMotion: false,
+    prefersHighContrast: false,
+    screenOrientation: 'landscape' as any,
+  }));
+  const [enhancementLevel, setEnhancementLevel] = useState<'basic' | 'standard' | 'enhanced' | 'full'>(() => 'standard');
 
   // Touch gesture handlers for quantum interactions
   const gestureElementRef = useTouchGestures({
@@ -110,6 +127,9 @@ export default function DeviceAdaptation({ children }: DeviceAdaptationProps) {
       const optimizedQuality = getBatteryOptimizedSettings(newCapabilities);
       setQuantumQuality(optimizedQuality);
     };
+
+    // Initial compute on client after mount to avoid hydration mismatch
+    updateDeviceStatus();
 
     // Update on visibility change (battery optimization)
     document.addEventListener('visibilitychange', updateDeviceStatus);
@@ -210,6 +230,7 @@ export default function DeviceAdaptation({ children }: DeviceAdaptationProps) {
         battery: Math.round(deviceCapabilities.batteryLevel * 100),
         connection: deviceCapabilities.connectionType,
       })}
+      suppressHydrationWarning
       // Accessibility attributes
       role="application"
       aria-label="Vidya Quantum Sanskrit AI Interface"

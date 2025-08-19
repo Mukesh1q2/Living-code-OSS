@@ -80,7 +80,7 @@ export default function Vidya() {
       consciousness.recordInteraction(interaction);
       evolveFromInteraction(interaction);
     }
-  }, [selectedNode, scene, recordInteraction, canTeleport, initiateTeleportation, consciousness.level]);
+  }, [selectedNode, scene, canTeleport, initiateTeleportation, consciousness.level, evolveFromInteraction]);
 
   const tRef = useRef(0);
   useFrame((_, dt) => {
