@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useQuantumState } from '@/lib/state';
 import { useResponsive, getDeviceCapabilities } from '@/lib/responsive';
-import { usePerformanceOptimization } from '@/lib/usePerformanceOptimization';
+// import { usePerformanceOptimization } from '@/lib/usePerformanceOptimization';
 import ThreeInspector from './ThreeInspector';
 import PerformanceDashboard from './PerformanceDashboard';
 
@@ -21,7 +21,15 @@ export default function DevTools({ enabled = process.env.NODE_ENV === 'developme
 
   const quantumState = useQuantumState();
   const responsive = useResponsive();
-  const performance = usePerformanceOptimization();
+  // NOTE: Disabled hook that requires R3F Canvas context to avoid runtime error when DevTools is outside Canvas.
+  // const performance = usePerformanceOptimization();
+  const performance = {
+    metrics: null as any,
+    memoryUsage: null as any,
+    currentQuality: 'medium',
+    isOptimizing: false,
+    adaptationCount: 0,
+  };
 
   useEffect(() => {
     if (!enabled) return;

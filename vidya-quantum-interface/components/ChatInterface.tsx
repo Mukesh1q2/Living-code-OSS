@@ -169,11 +169,10 @@ export default function ChatInterface() {
     }
   };
 
-  const handleHttpFallback = async (inputText: string) => {
+const handleHttpFallback = async (inputText: string) => {
     try {
-      // Use enhanced consciousness system for local response generation
+      // Use enhanced consciousness system for local response generation first
       try {
-        // Generate consciousness-based response
         const consciousnessResponse = await generateResponse(inputText, {
           timestamp: new Date(),
           userInterface: 'chat',
@@ -203,53 +202,41 @@ export default function ChatInterface() {
         };
 
         setMessages((prev) => [...prev, vidyaMessage]);
-        
-        // If voice is enabled, prepare for speech
-        if (consciousnessResponse.voiceSettings) {
-          // Voice integration point - could trigger text-to-speech here
-          console.log('Voice settings prepared:', consciousnessResponse.voiceSettings);
-        }
-        
+        return; // success via consciousness
       } catch (consciousnessError) {
         console.error('Consciousness response error:', consciousnessError);
-        
-        // Fallback to HTTP API if consciousness system fails
-        let sanskritAnalysis = null;
-        if (/[\u0900-\u097F]/.test(inputText)) {
-          const analyzeResponse = await fetch("http://localhost:8000/api/sanskrit/analyze", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: inputText }),
-          });
-          sanskritAnalysis = await analyzeResponse.json();
-        }
+      }
 
-        // Then get Vidya response via HTTP
-        const processResponse = await fetch("http://localhost:8000/api/process", {
+      // HTTP fallback path
+      let sanskritAnalysis = null;
+      if (/[\u0900-\u097F]/.test(inputText)) {
+        // Prefer dev proxy or same-origin API; avoid hardcoding localhost
+        const analyzeResponse = await fetch("/api/sanskrit/analyze", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ 
-            text: inputText,
-            enable_tracing: true,
-            enable_visualization: true,
-            quantum_effects: true,
-            consciousness_level: 1
-          }),
+          body: JSON.stringify({ text: inputText }),
         });
-        const processData = await processResponse.json();
-
-        const vidyaMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          type: "vidya",
-          content: processData.success 
-            ? `${processData.output_text}\n\n${processData.transformations_applied ? 'Transformations: ' + processData.transformations_applied.join(', ') : ''}`
-            : "I apologize, but I couldn't process your request successfully.",
-          timestamp: new Date(),
-          sanskritAnalysis: sanskritAnalysis,
-        };
-
-        setMessages((prev) => [...prev, vidyaMessage]);
+        // If Next.js app handles /api and not backend, keep it non-fatal
+        try { sanskritAnalysis = await analyzeResponse.json(); } catch {}
       }
+
+      // Get response via Next.js route (simulated LLM) to ensure UX even without backend process API
+      const llmResponse = await fetch("/api/llm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: inputText, sanskritAnalysis }),
+      });
+      const llmData = await llmResponse.json();
+
+      const vidyaMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        type: "vidya",
+        content: llmData?.completion || "I processed your query.",
+        timestamp: new Date(),
+        sanskritAnalysis,
+      };
+
+      setMessages((prev) => [...prev, vidyaMessage]);
     } catch (error) {
       console.error('HTTP fallback error:', error);
       const errorMessage: Message = {

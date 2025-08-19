@@ -40,7 +40,9 @@ export default function WebSocketProvider({
   autoConnect = true,
   debugMode = process.env.NODE_ENV === 'development'
 }: WebSocketProviderProps) {
-  const { connect, disconnect, isConnected, connectionState, lastError } = useWebSocketConnection();
+  const { connect, disconnect, isConnected, connectionState, lastError } = useWebSocketConnection({
+    url: typeof window !== 'undefined' ? (process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8000/ws') : undefined,
+  });
   const { sendMessage, addHandler, removeHandler } = useWebSocketMessages();
   
   // Quantum state for integration
