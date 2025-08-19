@@ -6,7 +6,6 @@ import { useResponsive, getDeviceCapabilities } from '@/lib/responsive';
 // import { usePerformanceOptimization } from '@/lib/usePerformanceOptimization';
 import ThreeInspector from './ThreeInspector';
 import PerformanceDashboard from './PerformanceDashboard';
-import { useQuantumState } from '@/lib/state';
 
 interface DevToolsProps {
   enabled?: boolean;
