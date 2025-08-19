@@ -20,6 +20,16 @@ async def root():
 async def health():
     return {"status": "healthy", "timestamp": datetime.utcnow().isoformat()}
 
+# Additional Kubernetes-friendly health endpoints
+@app.get("/healthz")
+async def healthz():
+    return {"status": "ok"}
+
+@app.get("/readyz")
+async def readyz():
+    # TODO: add deeper readiness checks (models, external services)
+    return {"ready": True}
+
 @app.post("/api/sanskrit/analyze")
 async def analyze_sanskrit(data: dict):
     text = data.get("text", "")

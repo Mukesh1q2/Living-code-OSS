@@ -195,6 +195,17 @@ test(frontend): add integration tests for quantum visualizations
 
 ## 🧪 Testing Guidelines
 
+### Quick start (from bundle recommendations)
+
+- Create a virtual environment:
+  - PowerShell: .\.venv\Scripts\Activate.ps1 after python -m venv .venv
+  - Bash: source .venv/bin/activate
+- Install dev tools: pip install -U pip && pip install -e .[dev] (or use requirements.txt)
+- Install pre-commit hooks: pre-commit install
+- Run full validation locally:
+  - make validate (or scripts/validate.sh)
+  - Frontend: npm ci && npm run build in the chosen frontend directory
+
 ### Backend Testing
 
 - **Unit Tests**: Test individual functions and classes
