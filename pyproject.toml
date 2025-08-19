@@ -1,0 +1,192 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vidya-quantum-interface"
+version = "1.0.0"
+description = "Sanskrit AI Consciousness Interface - Where Ancient Wisdom Meets Quantum Computing"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Vidya Development Team", email = "dev@vidya-quantum.com"}
+]
+maintainers = [
+    {name = "Vidya Development Team", email = "dev@vidya-quantum.com"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education", 
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic",
+    "Topic :: Education",
+    "Topic :: Religion",
+]
+keywords = [
+    "sanskrit", "ai", "quantum", "consciousness", "nlp", "linguistics",
+    "ancient-wisdom", "morphology", "panini", "grammar", "vedic",
+    "fastapi", "react", "webgl", "visualization"
+]
+dependencies = [
+    "fastapi>=0.104.1",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    "redis>=5.0.1",
+    "transformers>=4.36.0",
+    "torch>=2.1.1",
+    "numpy>=1.24.3",
+    "httpx>=0.25.2",
+    "prometheus-client>=0.19.0",
+    "python-dotenv>=1.0.0",
+    "cryptography>=41.0.8",
+    "psutil>=5.9.6",
+]
+requires-python = ">=3.11"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.3",
+    "pytest-cov>=4.1.0",
+    "pytest-asyncio>=0.21.1",
+    "black>=23.11.0",
+    "flake8>=6.1.0",
+    "mypy>=1.7.1",
+    "isort>=5.12.0",
+    "pre-commit>=3.6.0",
+]
+cloud = [
+    "boto3>=1.34.0",
+    "google-cloud-storage>=2.10.0",
+    "azure-storage-blob>=12.19.0",
+]
+monitoring = [
+    "prometheus-client>=0.19.0",
+    "structlog>=23.2.0",
+    "python-json-logger>=2.0.7",
+]
+all = [
+    "vidya-quantum-interface[dev,cloud,monitoring]"
+]
+
+[project.urls]
+Homepage = "https://github.com/Mukesh1q2/Living-code-OSS"
+Documentation = "https://github.com/Mukesh1q2/Living-code-OSS/docs"
+Repository = "https://github.com/Mukesh1q2/Living-code-OSS"
+"Bug Tracker" = "https://github.com/Mukesh1q2/Living-code-OSS/issues"
+Changelog = "https://github.com/Mukesh1q2/Living-code-OSS/blob/main/CHANGELOG.md"
+
+[project.scripts]
+vidya-server = "vidya_quantum_interface.cli:main"
+vidya-analyze = "vidya_quantum_interface.cli:analyze"
+
+[tool.setuptools.packages.find]
+exclude = ["tests*", "docs*", "scripts*"]
+
+[tool.setuptools.package-data]
+vidya_quantum_interface = ["data/*.json", "data/*.yaml", "templates/*.html", "static/*"]
+sanskrit_rewrite_engine = ["rules/*.yaml", "dictionaries/*.json"]
+
+# Black configuration
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+# isort configuration
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["vidya_quantum_interface", "sanskrit_rewrite_engine"]
+
+# mypy configuration
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = [
+    "transformers.*",
+    "torch.*",
+    "redis.*",
+    "prometheus_client.*",
+]
+ignore_missing_imports = true
+
+# pytest configuration
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "api: marks tests as API tests",
+    "frontend: marks tests as frontend tests",
+    "sanskrit: marks tests related to Sanskrit processing",
+    "quantum: marks tests related to quantum visualization",
+]
+
+# Coverage configuration
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*",
+    "*/venv/*",
+    "*/env/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.coverage.html]
+directory = "htmlcov"

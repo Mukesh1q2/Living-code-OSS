@@ -1,0 +1,28 @@
+SCALABILITY ANALYSIS REPORT
+==============================
+Base Corpus: test_corpus\compound_examples.json
+Scale Factors: [1, 2, 3, 5]
+
+Processing Time Analysis:
+  Scale 1x: 0.005s
+  Scale 2x: 0.006s
+  Scale 3x: 0.005s
+  Scale 5x: 0.004s
+
+Throughput Analysis:
+  Scale 1x: 1643.6 tokens/s
+  Scale 2x: 1556.0 tokens/s
+  Scale 3x: 1898.8 tokens/s
+  Scale 5x: 2078.4 tokens/s
+
+Memory Usage Analysis:
+  Scale 1x: 0.02 MB
+  Scale 2x: 0.01 MB
+  Scale 3x: 0.00 MB
+  Scale 5x: 0.00 MB
+
+Accuracy Degradation Analysis:
+  Scale 1x: +0.00%
+  Scale 2x: +0.00%
+  Scale 3x: +0.00%
+  Scale 5x: +0.00%

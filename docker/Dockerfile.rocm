@@ -1,0 +1,91 @@
+# Dockerfile for Sanskrit Rewrite Engine with ROCm GPU acceleration
+# Optimized for RX6800M GPU with VRAM-aware batching and mixed-precision
+
+FROM rocm/pytorch:rocm6.0_ubuntu22.04_py3.10_pytorch_2.1.1
+
+# Set environment variables for ROCm
+ENV ROCM_VERSION=6.0
+ENV HIP_VISIBLE_DEVICES=0
+ENV PYTORCH_ROCM_ARCH=gfx1030
+ENV HSA_OVERRIDE_GFX_VERSION=10.3.0
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    wget \
+    curl \
+    vim \
+    htop \
+    rocm-dev-tools \
+    rocm-libs \
+    hip-dev \
+    rocblas-dev \
+    rocsparse-dev \
+    rocfft-dev \
+    rocrand-dev \
+    miopen-hip-dev \
+    rccl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements first for better caching
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install additional ROCm-specific packages
+RUN pip install --no-cache-dir \
+    torch-audio \
+    torchaudio \
+    torchvision \
+    transformers[torch] \
+    accelerate \
+    datasets \
+    tokenizers \
+    sentencepiece \
+    protobuf \
+    numpy \
+    scipy \
+    pandas \
+    matplotlib \
+    seaborn \
+    jupyter \
+    ipywidgets
+
+# Copy application code
+COPY . .
+
+# Create necessary directories
+RUN mkdir -p /app/r_zero_storage/logs \
+    /app/r_zero_storage/traces \
+    /app/r_zero_storage/rewards \
+    /app/r_zero_storage/experiments \
+    /app/r_zero_storage/checkpoints \
+    /app/sanskrit_corpus \
+    /app/sanskrit_datasets \
+    /app/test_storage
+
+# Set Python path
+ENV PYTHONPATH=/app:$PYTHONPATH
+
+# ROCm optimization environment variables
+ENV MIOPEN_USER_DB_PATH=/tmp/.miopen
+ENV MIOPEN_CUSTOM_CACHE_DIR=/tmp/.miopen
+ENV PYTORCH_HIP_ALLOC_CONF=max_split_size_mb:512
+ENV HIP_FORCE_DEV_KERNARG=1
+
+# Create ROCm cache directories
+RUN mkdir -p /tmp/.miopen && chmod 777 /tmp/.miopen
+
+# Expose ports for Jupyter and API services
+EXPOSE 8888 8000 8080
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=30s --start-period=60s --retries=3 \
+    CMD python -c "import torch; print('GPU available:', torch.cuda.is_available()); exit(0 if torch.cuda.is_available() else 1)"
+
+# Default command
+CMD ["python", "-m", "sanskrit_rewrite_engine.gpu_acceleration", "--benchmark"]

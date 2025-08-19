@@ -1,0 +1,40 @@
+SANSKRIT REWRITE ENGINE - CORPUS BENCHMARKING REPORT
+============================================================
+Generated: 2025-08-12 14:18:25
+Total Corpora Evaluated: 1
+
+EXECUTIVE SUMMARY
+--------------------
+Average Accuracy: 0.00%
+Average Processing Time: 0.009s
+Average Rule Coverage: 0.0%
+Average Semantic Consistency: 0.00%
+
+DETAILED RESULTS BY CORPUS
+------------------------------
+
+Corpus: sandhi_examples
+  Timestamp: 2025-08-12 14:18:25
+  Accuracy: 0.00% (0/5)
+  Precision: 0.00%
+  Recall: 0.00%
+  F1 Score: 0.00%
+  Avg Processing Time: 0.009s
+  Throughput: 1015.4 tokens/s
+  Rule Coverage: 0.0% (0/12)
+  Unused Rules: 12
+  Semantic Consistency: 0.00%
+
+OPTIMIZATION RECOMMENDATIONS
+------------------------------
+1. Low recall (0.00%). Add more comprehensive rules to catch missed transformations.
+2. Low rule coverage (0.0%). Many rules are unused - consider removing redundant rules or expanding test corpus to exercise more rules.
+3. High number of unused rules (12). Review rule necessity and corpus completeness.
+4. Low semantic consistency (0.00%). Review transformations for semantic preservation.
+5. Low precision (0.00%). Reduce false positives by adding more restrictive rule conditions.
+6. Low accuracy (0.00%). Consider reviewing rule priorities and adding more specific transformation rules.
+
+PERFORMANCE ANALYSIS
+--------------------
+Processing Time - Single measurement: 0.009s
+Throughput - Single measurement: 1015.4 tokens/s

@@ -1,0 +1,80 @@
+SANSKRIT REWRITE ENGINE - CORPUS BENCHMARKING REPORT
+============================================================
+Generated: 2025-08-12 18:44:50
+Total Corpora Evaluated: 4
+
+EXECUTIVE SUMMARY
+--------------------
+Average Accuracy: 0.00%
+Average Processing Time: 0.005s
+Average Rule Coverage: 0.0%
+Average Semantic Consistency: 50.00%
+
+DETAILED RESULTS BY CORPUS
+------------------------------
+
+Corpus: compound_examples
+  Timestamp: 2025-08-12 18:44:50
+  Accuracy: 0.00% (0/3)
+  Precision: 0.00%
+  Recall: 0.00%
+  F1 Score: 0.00%
+  Avg Processing Time: 0.005s
+  Throughput: 1789.0 tokens/s
+  Avg Memory Usage: 0.01 MB
+  Rule Coverage: 0.0% (0/12)
+  Unused Rules: 12
+  Semantic Consistency: 100.00%
+
+Corpus: derivation_examples
+  Timestamp: 2025-08-12 18:44:50
+  Accuracy: 0.00% (0/2)
+  Precision: 0.00%
+  Recall: 0.00%
+  F1 Score: 0.00%
+  Avg Processing Time: 0.004s
+  Throughput: 1637.0 tokens/s
+  Avg Memory Usage: 0.00 MB
+  Rule Coverage: 0.0% (0/12)
+  Unused Rules: 12
+  Semantic Consistency: 0.00%
+
+Corpus: morphological_forms
+  Timestamp: 2025-08-12 18:44:50
+  Accuracy: 0.00% (0/3)
+  Precision: 0.00%
+  Recall: 0.00%
+  F1 Score: 0.00%
+  Avg Processing Time: 0.006s
+  Throughput: 1135.1 tokens/s
+  Avg Memory Usage: 0.00 MB
+  Rule Coverage: 0.0% (0/12)
+  Unused Rules: 12
+  Semantic Consistency: 100.00%
+
+Corpus: sandhi_examples
+  Timestamp: 2025-08-12 18:44:50
+  Accuracy: 0.00% (0/5)
+  Precision: 0.00%
+  Recall: 0.00%
+  F1 Score: 0.00%
+  Avg Processing Time: 0.005s
+  Throughput: 1955.2 tokens/s
+  Avg Memory Usage: 0.01 MB
+  Rule Coverage: 0.0% (0/12)
+  Unused Rules: 12
+  Semantic Consistency: 0.00%
+
+OPTIMIZATION RECOMMENDATIONS
+------------------------------
+1. Low precision (0.00%). Reduce false positives by adding more restrictive rule conditions.
+2. High number of unused rules (12). Review rule necessity and corpus completeness.
+3. Low rule coverage (0.0%). Many rules are unused - consider removing redundant rules or expanding test corpus to exercise more rules.
+4. Low accuracy (0.00%). Consider reviewing rule priorities and adding more specific transformation rules.
+5. Low recall (0.00%). Add more comprehensive rules to catch missed transformations.
+6. Low semantic consistency (0.00%). Review transformations for semantic preservation.
+
+PERFORMANCE ANALYSIS
+--------------------
+Processing Time - Min: 0.004s, Max: 0.006s, Std Dev: 0.001s
+Throughput - Min: 1135.1, Max: 1955.2, Std Dev: 354.0 tokens/s

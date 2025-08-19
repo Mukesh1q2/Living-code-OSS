@@ -1,0 +1,104 @@
+{# Sanskrit Problem Format Template for R-Zero #}
+{# This template formats Sanskrit grammatical problems for R-Zero training #}
+
+{% if problem_type == "SANDHI_APPLICATION" %}
+<sanskrit_problem>
+Apply sandhi rules to combine the following Sanskrit elements:
+
+Input: {{ input_text }}
+
+Instructions:
+- Apply appropriate sandhi (euphonic combination) rules
+- Provide the combined form
+- The result should follow classical Sanskrit phonological rules
+
+Expected format: Provide the sandhi result directly.
+</sanskrit_problem>
+
+{% elif problem_type == "MORPHOLOGICAL_ANALYSIS" %}
+<sanskrit_problem>
+Analyze the morphological structure of the following Sanskrit word:
+
+Word: {{ input_text }}
+
+Instructions:
+- Break down the word into its constituent morphemes
+- Identify the root (dhātu), suffixes (pratyaya), and prefixes if any
+- Specify grammatical categories (vibhakti, kāraka, etc.)
+
+Expected format: root + suffix (grammatical_info)
+</sanskrit_problem>
+
+{% elif problem_type == "DERIVATION_TRACE" %}
+<sanskrit_problem>
+Provide a step-by-step derivation (prakriyā) for the following Sanskrit word:
+
+Word: {{ input_text }}
+
+Instructions:
+- Show each step of the derivation process
+- Cite relevant Pāṇini sūtras where applicable
+- Explain the transformations at each step
+
+Expected format: Step-by-step derivation with rule citations
+</sanskrit_problem>
+
+{% elif problem_type == "COMPOUND_ANALYSIS" %}
+<sanskrit_problem>
+Analyze the compound (samāsa) structure of the following Sanskrit word:
+
+Compound: {{ input_text }}
+
+Instructions:
+- Identify the type of compound (tatpuruṣa, bahuvrīhi, etc.)
+- Break down into constituent elements
+- Explain the semantic relationship between components
+
+Expected format: component1 + component2 (compound_type)
+</sanskrit_problem>
+
+{% elif problem_type == "GRAMMATICAL_CORRECTION" %}
+<sanskrit_problem>
+Correct the grammatical errors in the following Sanskrit text:
+
+Text: {{ input_text }}
+
+Instructions:
+- Identify grammatical errors
+- Provide the corrected version
+- Explain the corrections made
+
+Expected format: Corrected text with explanations
+</sanskrit_problem>
+
+{% else %}
+{# Generic Sanskrit problem format #}
+<sanskrit_problem>
+Sanskrit Grammatical Problem:
+
+{{ input_text }}
+
+Instructions:
+- Apply appropriate Sanskrit grammatical rules
+- Provide a clear and accurate solution
+- Follow classical Sanskrit conventions
+
+Expected format: Direct answer following Sanskrit grammatical principles
+</sanskrit_problem>
+{% endif %}
+
+{% if sutra_references %}
+
+Relevant Sūtras:
+{% for sutra in sutra_references %}
+- {{ sutra }}
+{% endfor %}
+{% endif %}
+
+{% if difficulty %}
+Difficulty Level: {{ difficulty }}
+{% endif %}
+
+{% if explanation %}
+Context: {{ explanation }}
+{% endif %}

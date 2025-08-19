@@ -1,0 +1,513 @@
+:root {
+  --bg: #05070B;
+  --fg: #E8F6FF;
+  --primary-neon: #7BE1FF;
+  --secondary-neon: #B383FF;
+  --accent-green: #63FFC9;
+  --accent-pink: #FF7BD5;
+  --text-high: #E8F6FF;
+  --text-dim: #8FB2C8;
+  
+  /* Responsive breakpoints */
+  --mobile-max: 480px;
+  --tablet-max: 768px;
+  --desktop-max: 1024px;
+  --wide-min: 1440px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Inter, "Noto Sans", "Devanagari Sangam MN", "Kohinoor Devanagari", sans-serif;
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+canvas {
+  display: block;
+}
+
+/* Responsive utilities */
+.responsive-layout {
+  --scale-factor: 1;
+}
+
+.responsive-layout.mobile {
+  --scale-factor: 0.9;
+}
+
+.responsive-layout.tablet {
+  --scale-factor: 0.95;
+}
+
+.responsive-layout.wide {
+  --scale-factor: 1.1;
+}
+
+/* Quantum quality classes */
+.quantum-minimal * {
+  animation-duration: 2s !important;
+}
+
+.quantum-low * {
+  animation-duration: 1.5s !important;
+}
+
+.quantum-high * {
+  animation-duration: 0.8s !important;
+}
+
+/* Touch-friendly interactions */
+@media (hover: none) and (pointer: coarse) {
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Larger touch targets for mobile */
+  .mobile button, .mobile a, .mobile [role="button"] {
+    min-height: 48px;
+    min-width: 48px;
+    padding: 12px;
+  }
+}
+
+/* Responsive text scaling */
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1440px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+/* Landscape mobile optimization */
+@media (max-height: 500px) and (orientation: landscape) {
+  .responsive-layout {
+    --scale-factor: 0.8;
+  }
+  
+  .responsive-layout .mobile {
+    font-size: 12px;
+  }
+}
+
+/* Ultra-wide screen support */
+@media (min-width: 2560px) {
+  html {
+    font-size: 20px;
+  }
+  
+  .responsive-layout.wide {
+    --scale-factor: 1.2;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --bg: #000000;
+    --fg: #FFFFFF;
+    --primary-neon: #00FFFF;
+    --secondary-neon: #FF00FF;
+  }
+}
+
+/* Sanskrit Character Animation Styles */
+.sanskrit-translation-overlay {
+  font-family: 'Noto Sans Devanagari', 'Devanagari Sangam MN', 'Kohinoor Devanagari', sans-serif;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  max-width: 300px;
+  text-align: center;
+  user-select: none;
+}
+
+.sanskrit-translation-overlay .sanskrit-text {
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFD700;
+  margin-bottom: 4px;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+
+.sanskrit-translation-overlay .transliteration {
+  font-size: 12px;
+  color: #7BE1FF;
+  font-style: italic;
+  margin-bottom: 4px;
+  opacity: 0.9;
+}
+
+.sanskrit-translation-overlay .translation {
+  font-size: 11px;
+  color: #E8F6FF;
+  opacity: 0.8;
+  line-height: 1.3;
+}
+
+/* Responsive Sanskrit overlay styles */
+@media (max-width: 480px) {
+  .sanskrit-translation-overlay {
+    max-width: 250px;
+    padding: 6px 10px;
+  }
+  
+  .sanskrit-translation-overlay .sanskrit-text {
+    font-size: 14px;
+  }
+  
+  .sanskrit-translation-overlay .transliteration {
+    font-size: 11px;
+  }
+  
+  .sanskrit-translation-overlay .translation {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .sanskrit-translation-overlay {
+    max-width: 350px;
+  }
+  
+  .sanskrit-translation-overlay .sanskrit-text {
+    font-size: 18px;
+  }
+  
+  .sanskrit-translation-overlay .transliteration {
+    font-size: 13px;
+  }
+  
+  .sanskrit-translation-overlay .translation {
+    font-size: 12px;
+  }
+}
+
+/* Animation keyframes for Sanskrit characters */
+@keyframes sanskrit-character-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes sanskrit-character-flow {
+  0% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100px) rotate(360deg);
+    opacity: 0.6;
+  }
+}
+
+@keyframes sanskrit-character-morph {
+  0% {
+    transform: scale(1) rotate(0deg);
+    filter: blur(0px);
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    filter: blur(2px);
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+    filter: blur(0px);
+  }
+}
+
+/* Quantum superposition effect for Sanskrit characters */
+@keyframes quantum-superposition {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    opacity: 0.6;
+    transform: translateX(2px) translateY(-2px);
+  }
+  50% {
+    opacity: 0.4;
+    transform: translateX(-1px) translateY(1px);
+  }
+  75% {
+    opacity: 0.7;
+    transform: translateX(1px) translateY(-1px);
+  }
+}
+
+/* Dimensional Transition Styles */
+@keyframes quantumFloat {
+  0%, 100% { 
+    transform: translateY(0px) scale(1); 
+    opacity: 0.8; 
+  }
+  50% { 
+    transform: translateY(-20px) scale(1.2); 
+    opacity: 1; 
+  }
+}
+
+@keyframes energyFlow {
+  0% { 
+    transform: rotate(0deg); 
+  }
+  100% { 
+    transform: rotate(360deg); 
+  }
+}
+
+@keyframes quantumPulse {
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes dimensionalTransitionShimmer {
+  0% { 
+    transform: translateX(-100%); 
+  }
+  100% { 
+    transform: translateX(100%); 
+  }
+}
+
+/* Dimensional State Classes */
+.dimensional-2d-text {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  transform-style: flat;
+}
+
+.dimensional-3d-holographic {
+  transform-style: preserve-3d;
+}
+
+.dimensional-energy-pattern {
+  filter: blur(1px) saturate(1.5);
+  transform-style: preserve-3d;
+}
+
+.dimensional-transitioning {
+  will-change: transform, opacity, filter;
+}
+
+/* Dimensional Controls Styles */
+.dimensional-controls {
+  position: relative;
+  user-select: none;
+}
+
+.dimensional-button {
+  position: relative;
+  font-family: inherit;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.dimensional-button:focus {
+  outline: 2px solid rgba(123, 225, 255, 0.5);
+  outline-offset: 2px;
+}
+
+.dimensional-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(123, 225, 255, 0.2);
+}
+
+.dimensional-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.dimensional-button-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.dimensional-button-label {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.auto-optimize-button:focus {
+  outline: 2px solid rgba(99, 255, 201, 0.5);
+  outline-offset: 2px;
+}
+
+.auto-optimize-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 255, 201, 0.2);
+}
+
+.transition-progress {
+  pointer-events: none;
+}
+
+.dimensional-tooltip {
+  animation: tooltipFadeIn 0.2s ease;
+}
+
+.dimensional-tooltip::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(123, 225, 255, 0.3);
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Quantum Transition Particles */
+.quantum-transition-particle {
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.geometric-transition-patterns {
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* Responsive Dimensional Controls */
+@media (max-width: 480px) {
+  .dimensional-controls {
+    gap: 6px !important;
+    padding: 6px !important;
+  }
+  
+  .dimensional-button {
+    min-width: 36px;
+    min-height: 36px;
+    padding: 6px !important;
+  }
+  
+  .dimensional-button-icon {
+    font-size: 14px;
+  }
+  
+  .dimensional-tooltip {
+    font-size: 11px;
+    padding: 6px 8px;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dimensional-controls {
+    gap: 8px !important;
+  }
+  
+  .dimensional-button {
+    min-width: 38px;
+    min-height: 38px;
+  }
+}
+
+/* High contrast mode support for dimensional controls */
+@media (prefers-contrast: high) {
+  .dimensional-button {
+    border-width: 2px;
+  }
+  
+  .dimensional-button:focus {
+    outline-width: 3px;
+  }
+  
+  .dimensional-tooltip {
+    border-width: 2px;
+    background: #000000;
+    color: #FFFFFF;
+  }
+}
+
+/* Reduced motion support for dimensional transitions */
+@media (prefers-reduced-motion: reduce) {
+  .dimensional-transitioning {
+    transition: none !important;
+  }
+  
+  .quantum-transition-particle {
+    animation: none !important;
+  }
+  
+  .geometric-transition-patterns {
+    animation: none !important;
+  }
+  
+  @keyframes quantumFloat {
+    0%, 100% { 
+      transform: translateY(0px) scale(1); 
+      opacity: 0.8; 
+    }
+  }
+  
+  @keyframes energyFlow {
+    0%, 100% { 
+      transform: rotate(0deg); 
+    }
+  }
+}

@@ -1,0 +1,383 @@
+/**
+ * Accessibility styles for Vidya quantum interface
+ * Provides comprehensive support for users with different abilities
+ */
+
+/* High contrast mode */
+.high-contrast {
+  --quantum-color-primary: #ffffff;
+  --quantum-color-secondary: #000000;
+  --quantum-color-accent: #ffff00;
+  --quantum-color-background: #000000;
+  --quantum-color-text: #ffffff;
+  --quantum-color-border: #ffffff;
+  --quantum-color-focus: #ffff00;
+  --quantum-color-error: #ff0000;
+  --quantum-color-success: #00ff00;
+  --quantum-color-warning: #ffaa00;
+}
+
+.high-contrast * {
+  border-color: var(--quantum-color-border) !important;
+  color: var(--quantum-color-text) !important;
+}
+
+.high-contrast .quantum-particle,
+.high-contrast .neural-node,
+.high-contrast .sanskrit-character {
+  filter: contrast(200%) brightness(150%);
+}
+
+/* Reduced motion preferences */
+.reduced-motion,
+.reduced-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+.reduced-motion .quantum-particle-system {
+  display: none;
+}
+
+.reduced-motion .quantum-field {
+  animation: none;
+  opacity: 0.3;
+}
+
+.reduced-motion .neural-network-connection {
+  animation: none;
+}
+
+.reduced-motion .sanskrit-character-flow {
+  animation: none;
+  position: static;
+}
+
+/* Focus indicators */
+.focus-indicators *:focus {
+  outline: 3px solid var(--quantum-color-focus, #7BE1FF);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(123, 225, 255, 0.3);
+}
+
+.focus-indicators .quantum-interactive:focus {
+  outline: 3px solid var(--quantum-color-accent, #B383FF);
+  outline-offset: 4px;
+  box-shadow: 
+    0 0 0 6px rgba(179, 131, 255, 0.3),
+    0 0 20px rgba(179, 131, 255, 0.5);
+}
+
+.focus-indicators .neural-node:focus {
+  outline: 3px solid var(--quantum-color-accent, #B383FF);
+  outline-offset: 2px;
+  transform: scale(1.1);
+  z-index: 1000;
+}
+
+/* Keyboard navigation indicators */
+.keyboard-navigation .neural-node[data-keyboard-selected="true"] {
+  outline: 3px dashed var(--quantum-color-accent, #B383FF);
+  outline-offset: 4px;
+  animation: keyboard-pulse 2s infinite;
+}
+
+@keyframes keyboard-pulse {
+  0%, 100% { outline-color: var(--quantum-color-accent, #B383FF); }
+  50% { outline-color: var(--quantum-color-focus, #7BE1FF); }
+}
+
+/* Font size adjustments */
+.font-small {
+  --base-font-size: 12px;
+  --quantum-text-scale: 0.8;
+}
+
+.font-medium {
+  --base-font-size: 16px;
+  --quantum-text-scale: 1.0;
+}
+
+.font-large {
+  --base-font-size: 20px;
+  --quantum-text-scale: 1.25;
+}
+
+.font-extra-large {
+  --base-font-size: 24px;
+  --quantum-text-scale: 1.5;
+}
+
+/* Apply font scaling to quantum elements */
+.quantum-text,
+.sanskrit-character,
+.neural-node-label,
+.quantum-tooltip {
+  font-size: calc(var(--base-font-size, 16px) * var(--quantum-text-scale, 1));
+}
+
+/* Color blind friendly palette */
+.color-blind-friendly {
+  --quantum-color-primary: #0066cc;    /* Blue */
+  --quantum-color-secondary: #ff6600;  /* Orange */
+  --quantum-color-accent: #009900;     /* Green */
+  --quantum-color-warning: #cc6600;    /* Dark orange */
+  --quantum-color-error: #cc0000;      /* Red */
+  --quantum-color-success: #006600;    /* Dark green */
+  --quantum-color-neutral: #666666;    /* Gray */
+}
+
+.color-blind-friendly .quantum-entanglement-line {
+  stroke: var(--quantum-color-primary);
+  stroke-width: 3px;
+  stroke-dasharray: 5,5;
+}
+
+.color-blind-friendly .quantum-superposition {
+  border: 2px solid var(--quantum-color-accent);
+  background: rgba(0, 153, 0, 0.1);
+}
+
+.color-blind-friendly .neural-node-active {
+  fill: var(--quantum-color-secondary);
+  stroke: var(--quantum-color-primary);
+  stroke-width: 2px;
+}
+
+/* Touch target sizing */
+.touch-targets .quantum-interactive,
+.touch-targets .neural-node,
+.touch-targets button,
+.touch-targets [role="button"] {
+  min-width: var(--touch-target-size, 44px);
+  min-height: var(--touch-target-size, 44px);
+  padding: 8px;
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Skip links */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--quantum-color-background, #000);
+  color: var(--quantum-color-text, #fff);
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 10000;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* ARIA live regions */
+.aria-live-region {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Quantum-specific accessibility enhancements */
+.quantum-state-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: monospace;
+  z-index: 1000;
+}
+
+.quantum-state-indicator[data-state="superposition"]::before {
+  content: "⚛️ ";
+}
+
+.quantum-state-indicator[data-state="entangled"]::before {
+  content: "🔗 ";
+}
+
+.quantum-state-indicator[data-state="teleporting"]::before {
+  content: "⚡ ";
+}
+
+.quantum-state-indicator[data-state="collapsed"]::before {
+  content: "📍 ";
+}
+
+/* Tooltip accessibility */
+.quantum-tooltip {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: var(--base-font-size, 14px);
+  max-width: 300px;
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.quantum-tooltip.visible {
+  opacity: 1;
+}
+
+.quantum-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+}
+
+/* Error and status announcements */
+.quantum-status-announcement {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: var(--base-font-size, 16px);
+  max-width: 80vw;
+  text-align: center;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.quantum-status-announcement.visible {
+  opacity: 1;
+}
+
+.quantum-status-announcement.error {
+  background: var(--quantum-color-error, #cc0000);
+}
+
+.quantum-status-announcement.success {
+  background: var(--quantum-color-success, #006600);
+}
+
+.quantum-status-announcement.warning {
+  background: var(--quantum-color-warning, #cc6600);
+}
+
+/* Responsive accessibility adjustments */
+@media (max-width: 768px) {
+  .touch-targets .quantum-interactive,
+  .touch-targets .neural-node {
+    min-width: 48px;
+    min-height: 48px;
+  }
+  
+  .quantum-tooltip {
+    font-size: 16px;
+    max-width: 90vw;
+  }
+  
+  .quantum-status-announcement {
+    font-size: 18px;
+    padding: 16px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .touch-targets .quantum-interactive,
+  .touch-targets .neural-node {
+    min-width: 52px;
+    min-height: 52px;
+  }
+}
+
+/* Print styles for accessibility */
+@media print {
+  .quantum-canvas,
+  .quantum-particle-system,
+  .quantum-field {
+    display: none;
+  }
+  
+  .quantum-text-content,
+  .sanskrit-text,
+  .neural-network-description {
+    display: block;
+    color: black;
+    background: white;
+  }
+}
+
+/* Prefers reduced data */
+@media (prefers-reduced-data: reduce) {
+  .quantum-particle-system,
+  .quantum-field-complex,
+  .neural-network-animations {
+    display: none;
+  }
+  
+  .quantum-canvas {
+    background: #000;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --quantum-color-background: #000;
+    --quantum-color-text: #fff;
+    --quantum-color-border: #333;
+  }
+}
+
+/* Light mode support */
+@media (prefers-color-scheme: light) {
+  :root {
+    --quantum-color-background: #fff;
+    --quantum-color-text: #000;
+    --quantum-color-border: #ccc;
+  }
+}
+
+/* Forced colors mode (Windows High Contrast) */
+@media (forced-colors: active) {
+  .quantum-particle,
+  .neural-node,
+  .sanskrit-character {
+    forced-color-adjust: none;
+    color: ButtonText;
+    background: ButtonFace;
+    border: 1px solid ButtonText;
+  }
+  
+  .quantum-interactive:focus {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}

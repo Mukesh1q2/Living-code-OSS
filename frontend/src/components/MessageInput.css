@@ -1,0 +1,252 @@
+.message-input {
+  border-top: 1px solid #e9ecef;
+  background: white;
+  padding: 16px 20px;
+}
+
+.input-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 24px;
+  padding: 8px 12px 8px 16px;
+  transition: all 0.2s ease;
+}
+
+.input-container:focus-within {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.message-textarea {
+  flex: 1;
+  border: none;
+  background: transparent;
+  resize: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 8px 0;
+  min-height: 20px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.message-textarea::placeholder {
+  color: #9aa0a6;
+}
+
+.message-textarea:disabled {
+  color: #9aa0a6;
+  cursor: not-allowed;
+}
+
+.input-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.send-button {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.send-button:hover:not(:disabled) {
+  background: #0056b3;
+  transform: scale(1.05);
+}
+
+.send-button:disabled {
+  background: #e9ecef;
+  color: #9aa0a6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.input-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding: 0 4px;
+}
+
+.input-hints {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hint {
+  font-size: 11px;
+  color: #9aa0a6;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hint kbd {
+  background: #f1f3f4;
+  border: 1px solid #dadce0;
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 10px;
+  font-family: inherit;
+  color: #5f6368;
+}
+
+.input-tools {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tool-button {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #5f6368;
+  transition: all 0.2s ease;
+}
+
+.tool-button:hover:not(:disabled) {
+  background: #f1f3f4;
+  color: #202124;
+}
+
+.tool-button:disabled {
+  color: #dadce0;
+  cursor: not-allowed;
+}
+
+/* Scrollbar for textarea */
+.message-textarea::-webkit-scrollbar {
+  width: 4px;
+}
+
+.message-textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.message-textarea::-webkit-scrollbar-thumb {
+  background: #dadce0;
+  border-radius: 2px;
+}
+
+.message-textarea::-webkit-scrollbar-thumb:hover {
+  background: #bdc1c6;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .message-input {
+    padding: 12px 16px;
+  }
+  
+  .input-container {
+    padding: 6px 8px 6px 12px;
+  }
+  
+  .message-textarea {
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+  
+  .send-button {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .input-footer {
+    margin-top: 6px;
+  }
+  
+  .hint {
+    display: none; /* Hide hints on mobile */
+  }
+  
+  .tool-button {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+}
+
+/* Accessibility */
+.send-button:focus,
+.tool-button:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* Animation for send button */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.send-button:active:not(:disabled) {
+  animation: pulse 0.2s ease-out;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .input-container {
+    background: #2d3748;
+    border-color: #4a5568;
+  }
+  
+  .message-textarea {
+    color: #e2e8f0;
+  }
+  
+  .message-textarea::placeholder {
+    color: #a0aec0;
+  }
+  
+  .hint {
+    color: #a0aec0;
+  }
+  
+  .hint kbd {
+    background: #4a5568;
+    border-color: #718096;
+    color: #e2e8f0;
+  }
+  
+  .tool-button {
+    color: #a0aec0;
+  }
+  
+  .tool-button:hover:not(:disabled) {
+    background: #4a5568;
+    color: #e2e8f0;
+  }
+}
