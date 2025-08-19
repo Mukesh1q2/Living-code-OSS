@@ -229,8 +229,9 @@ export default function WebSocketProvider({
 export function WebSocketStatus() {
   const { isConnected, connectionState, lastError } = useWebSocket();
 
-  if (process.env.NODE_ENV !== 'development') {
-    return null; // Only show in development
+  // Show status by default; allow disabling via env
+  if (process.env.NEXT_PUBLIC_SHOW_WS_STATUS === 'false') {
+    return null;
   }
 
   const getStatusColor = () => {

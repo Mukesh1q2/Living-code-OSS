@@ -6,6 +6,7 @@ import { useResponsive, getDeviceCapabilities } from '@/lib/responsive';
 // import { usePerformanceOptimization } from '@/lib/usePerformanceOptimization';
 import ThreeInspector from './ThreeInspector';
 import PerformanceDashboard from './PerformanceDashboard';
+import { useQuantumState } from '@/lib/state';
 
 interface DevToolsProps {
   enabled?: boolean;
@@ -116,6 +117,10 @@ export default function DevTools({ enabled = process.env.NODE_ENV === 'developme
       </div>
     ) : null;
   }
+
+  // Quick demo controls
+  const setSuperposition = useQuantumState(s => s.setSuperposition);
+  const initiateTeleportation = useQuantumState(s => s.initiateTeleportation);
 
   return (
     <div
@@ -257,6 +262,25 @@ export default function DevTools({ enabled = process.env.NODE_ENV === 'developme
           {performance.isOptimizing && (
             <div style={{ color: '#7BE1FF' }}>⚡ Optimizing...</div>
           )}
+          {/* Demo Mode Controls */}
+          <button
+            onClick={() => setSuperposition(true)}
+            style={{ background: 'rgba(123,225,255,0.1)', border: '1px solid rgba(123,225,255,0.3)', color: '#7BE1FF', borderRadius: 4, padding: '4px 8px', cursor: 'pointer', fontSize: '10px' }}
+          >
+            Activate Superposition
+          </button>
+          <button
+            onClick={() => setSuperposition(false)}
+            style={{ background: 'rgba(179,131,255,0.1)', border: '1px solid rgba(179,131,255,0.3)', color: '#B383FF', borderRadius: 4, padding: '4px 8px', cursor: 'pointer', fontSize: '10px' }}
+          >
+            Collapse Waveform
+          </button>
+          <button
+            onClick={() => initiateTeleportation([5, 2, 0], 'demo')}
+            style={{ background: 'rgba(99,255,201,0.1)', border: '1px solid rgba(99,255,201,0.3)', color: '#63FFC9', borderRadius: 4, padding: '4px 8px', cursor: 'pointer', fontSize: '10px' }}
+          >
+            Teleport Demo →
+          </button>
         </div>
       </div>
 
