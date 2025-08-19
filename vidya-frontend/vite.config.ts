@@ -12,6 +12,10 @@ export default defineConfig({
     host: true,
     hmr: {
       port: 3001
+    },
+    // Proxy API calls in dev so frontend can call "/api/..." and hit FastAPI on 8000
+    proxy: {
+      '/api': 'http://localhost:8000'
     }
   },
   build: {
