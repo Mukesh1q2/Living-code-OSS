@@ -31,6 +31,8 @@ ENV/
 env.bak/
 venv.bak/
 .venv/
+# Project-committed Windows venv (remove if already tracked)
+sanskrit-env/
 
 # PyCharm
 .idea/
@@ -354,6 +356,8 @@ cache/
 build/
 dist/
 out/
+frontend/build/
+vidya-frontend/dist/
 
 # Documentation build
 docs/_build/
