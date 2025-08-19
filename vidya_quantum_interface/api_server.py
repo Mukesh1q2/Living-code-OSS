@@ -70,6 +70,7 @@ active_ws_clients = set()
 @app.websocket("/ws")
 async def websocket_endpoint(ws: WebSocket):
     await ws.accept()
+    print(f"[WS] client connected @ {datetime.utcnow().isoformat()}")
     active_ws_clients.add(ws)
     try:
         # Notify client of connection
@@ -78,6 +79,7 @@ async def websocket_endpoint(ws: WebSocket):
             msg = await ws.receive_json()
             mtype = msg.get("type")
             payload = msg.get("payload", {})
+            print(f"[WS] rx type={mtype} payload_keys={list(payload.keys())}")
 
             if mtype == "ping":
                 await ws.send_json({"type": "pong", "payload": {"ts": datetime.utcnow().isoformat()}})
@@ -107,6 +109,7 @@ async def websocket_endpoint(ws: WebSocket):
             else:
                 await ws.send_json({"type": "error", "payload": {"error": f"Unknown message type: {mtype}"}})
     except WebSocketDisconnect:
-        pass
+        print(f"[WS] client disconnected @ {datetime.utcnow().isoformat()}")
     finally:
         active_ws_clients.discard(ws)
+        print(f"[WS] active clients: {len(active_ws_clients)}")
