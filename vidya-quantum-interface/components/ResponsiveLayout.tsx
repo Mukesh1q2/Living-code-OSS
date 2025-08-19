@@ -1,7 +1,9 @@
 "use client";
 
 import React, { ReactNode } from 'react';
-import { useResponsive, createResponsiveStyles, getBatteryOptimizedSettings } from '@/lib/responsive';
+import { useResponsive, createResponsiveStyles } from '@/lib/responsive';
+import type { QuantumEffectQuality } from '@/lib/responsive';
+import { getBatteryOptimizedSettings } from '@/lib/responsive';
 import { useQuantumState } from '@/lib/state';
 import DeviceAdaptation from './DeviceAdaptation';
 
@@ -13,13 +15,15 @@ export default function ResponsiveLayout({ children }: ResponsiveLayoutProps) {
   const { breakpoint, width, height, isMobile, isTablet } = useResponsive();
   const setQuantumQuality = useQuantumState((s) => s.setQuantumQuality);
 
-  // Set quantum effect quality based on device capabilities and battery status
-  const quality = getBatteryOptimizedSettings();
-  
-  // Update quantum quality in state
+  // Hydration-safe default: use a stable quality on server, compute real value on client
+  const [quality, setQuality] = React.useState<QuantumEffectQuality>('medium');
+
   React.useEffect(() => {
-    setQuantumQuality(quality);
-  }, [quality, setQuantumQuality]);
+    // Compute client-only quality to avoid SSR hydration mismatch
+    const q = getBatteryOptimizedSettings();
+    setQuality(q);
+    setQuantumQuality(q);
+  }, [setQuantumQuality]);
 
   const layoutStyles = createResponsiveStyles(
     {
@@ -55,6 +59,7 @@ export default function ResponsiveLayout({ children }: ResponsiveLayoutProps) {
       data-breakpoint={breakpoint}
       data-quantum-quality={quality}
       className={`responsive-layout ${breakpoint} quantum-${quality}`}
+      suppressHydrationWarning
     >
       {/* Responsive viewport meta information for debugging */}
       {process.env.NODE_ENV === 'development' && (
@@ -71,6 +76,7 @@ export default function ResponsiveLayout({ children }: ResponsiveLayoutProps) {
             fontFamily: 'monospace',
             pointerEvents: 'none',
           }}
+          suppressHydrationWarning
         >
           {width}×{height} | {breakpoint} | {quality}
         </div>
